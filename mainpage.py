@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 from styles import COLOR_THEME, TTK_THEME
-from views import AboutFrame, DeleteFrame, CreateFrame, UpdateFrame, PaymentFrame, SearchFrame
+from views import AboutFrame, DeleteFrame, CreateFrame, UpdateFrame, PaymentFrame, SearchFrame, CampersFrame, AssignmentFrame
 
 class MainPage:
 
@@ -11,7 +11,7 @@ class MainPage:
     def __init__(self, master):
         # we usually define
         self.master = master
-        self.master.geometry("600x450")
+        self.master.geometry("1200x800")
         self.master.title("Gila Breath Camp Master Application")
 
         self.page = ttk.Frame(self.master)
@@ -26,6 +26,8 @@ class MainPage:
         self.update_frame = UpdateFrame(self.master)
         self.payment_frame = PaymentFrame(self.master)
         self.search_frame = SearchFrame(self.master)
+        self.campers_frame = CampersFrame(self.master)
+        self.assignment_frame = AssignmentFrame(self.master)
 
     def navigation_bar(self):
         # apply the ttk style
@@ -42,6 +44,11 @@ class MainPage:
                  height=2, padx=20).pack(side="right")
 
         # Navbar button:
+        tk.Button(self.topFrame, text='Home', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+                  bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
+                  command=self.show_about,
+                  bd=0, padx=20).pack(side="left")
+
         tk.Button(self.topFrame, text='Add', font="Bahnschrift 10", fg=COLOR_THEME['text'],
                   bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
                   bd=0, padx=20,
@@ -57,6 +64,16 @@ class MainPage:
                   command=self.show_payment,
                   bd=0, padx=20).pack(side="left")
 
+        tk.Button(self.topFrame, text='Campers', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+                  bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
+                  command=self.show_campers,
+                  bd=0, padx=20).pack(side="left")
+
+        tk.Button(self.topFrame, text='Assignment', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+                  bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
+                  command=self.show_assignment,
+                  bd=0, padx=20).pack(side="left")
+
         tk.Button(self.topFrame, text='Search', font="Bahnschrift 10", fg=COLOR_THEME['text'],
                   bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
                   command=self.show_search,
@@ -67,9 +84,9 @@ class MainPage:
                   command=self.show_delete,
                   bd=0, padx=20).pack(side="left")
 
-        tk.Button(self.topFrame, text='About', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+        tk.Button(self.topFrame, text='Sign out', font="Bahnschrift 10", fg=COLOR_THEME['text'],
                   bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
-                  command=self.show_about,
+                  command=self.signout,
                   bd=0, padx=20).pack(side="left")
 
     def show_create(self):
@@ -79,6 +96,8 @@ class MainPage:
         self.update_frame.pack_forget()
         self.payment_frame.pack_forget()
         self.search_frame.pack_forget()
+        self.campers_frame.pack_forget()
+        self.assignment_frame.pack_forget()
 
     def show_update(self):
         self.update_frame.pack()
@@ -87,6 +106,8 @@ class MainPage:
         self.delete_frame.pack_forget()
         self.payment_frame.pack_forget()
         self.search_frame.pack_forget()
+        self.campers_frame.pack_forget()
+        self.assignment_frame.pack_forget()
 
     def show_payment(self):
         self.payment_frame.pack()
@@ -95,6 +116,8 @@ class MainPage:
         self.delete_frame.pack_forget()
         self.update_frame.pack_forget()
         self.search_frame.pack_forget()
+        self.campers_frame.pack_forget()
+        self.assignment_frame.pack_forget()
 
     def show_search(self):
         self.search_frame.pack()
@@ -103,6 +126,8 @@ class MainPage:
         self.delete_frame.pack_forget()
         self.update_frame.pack_forget()
         self.payment_frame.pack_forget()
+        self.campers_frame.pack_forget()
+        self.assignment_frame.pack_forget()
 
     def show_delete(self):
         self.delete_frame.pack()
@@ -111,6 +136,8 @@ class MainPage:
         self.update_frame.pack_forget()
         self.payment_frame.pack_forget()
         self.search_frame.pack_forget()
+        self.campers_frame.pack_forget()
+        self.assignment_frame.pack_forget()
 
     def show_about(self):
         self.about_frame.pack()
@@ -119,6 +146,31 @@ class MainPage:
         self.update_frame.pack_forget()
         self.payment_frame.pack_forget()
         self.search_frame.pack_forget()
+        self.campers_frame.pack_forget()
+        self.assignment_frame.pack_forget()
+
+    def show_assignment(self):
+        self.assignment_frame.pack()
+        self.create_frame.pack_forget()
+        self.about_frame.pack_forget()
+        self.delete_frame.pack_forget()
+        self.update_frame.pack_forget()
+        self.payment_frame.pack_forget()
+        self.search_frame.pack_forget()
+        self.campers_frame.pack_forget()
+
+    def show_campers(self):
+        self.campers_frame.pack()
+        self.about_frame.pack_forget()
+        self.delete_frame.pack_forget()
+        self.create_frame.pack_forget()
+        self.update_frame.pack_forget()
+        self.payment_frame.pack_forget()
+        self.search_frame.pack_forget()
+        self.assignment_frame.pack_forget()
+
+    def signout(self):
+        quit()
 
 if __name__ == '__main__':
     root = tk.Tk()
