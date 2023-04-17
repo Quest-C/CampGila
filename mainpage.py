@@ -17,6 +17,7 @@ class MainPage:
         self.page = ttk.Frame(self.master)
         self.page.pack()
         self.create_page()
+        self.show_about()
 
     def create_page(self):
         self.navigation_bar()
