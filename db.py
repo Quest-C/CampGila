@@ -34,7 +34,6 @@ class Database:
         except Exception as e:
             print(e)
 
-
     def insert_one_record(self, table_name, values):
         conn = self.create_connection()
         c = conn.cursor()
@@ -95,7 +94,7 @@ class Database:
         conn.close()
         return result
 
-    def update_camper_data(self, f_name, l_name, gender, dob, mobile, address, city, state, zipcode, email):
+    def update_camper_data(self, f_name, l_name, gender, dob, mobile, address, city, state, zipcode, email, bunkhouse, tribe):
         conn = self.create_connection()
         c = conn.cursor()
         try:
@@ -108,7 +107,9 @@ class Database:
                             address = '{address}',
                             city = '{city}',
                             state = '{state}',
-                            zipcode = '{zipcode}'
+                            zipcode = '{zipcode}',
+                            bunkhouse = '{bunkhouse}',
+                            tribe = '{tribe}'
                             WHERE email = '{email}'""")
             conn.commit()
             conn.close()
@@ -116,6 +117,139 @@ class Database:
         except Exception as e:
             print(e)
             return False
+
+    def camper_count_with_condition(self, conditions):
+        conn = self.create_connection()
+        c = conn.cursor()
+        try:
+            c.execute(f"""SELECT COUNT(*) FROM campers WHERE {conditions}""")
+            result = c.fetchone()[0]
+            conn.close()
+            return result
+        except Exception as e:
+            print(e)
+            return False
+        return count
+
+    def camper_count(self):
+        conn = self.create_connection()
+        c = conn.cursor()
+        try:
+            c.execute(f"""SELECT COUNT(*) FROM campers""")
+            result = c.fetchone()[0]
+            conn.close()
+            return result
+        except Exception as e:
+            print(e)
+            return False
+        return count
+
+    def reset_camper(self):
+        conn = self.create_connection()
+        c = conn.cursor()
+        c.execute('UPDATE campers SET bunkhouse = NULL, tribe = NULL')
+        conn.commit()
+        conn.close()
+
+    def assign_bunkhouses(self):
+        conn = self.create_connection()
+        c = conn.cursor()
+
+        c.execute(
+            'SELECT first_name, last_name, gender, date_of_birth, mobile, address, city, state, zipcode, email, registration_date, bunkhouse, tribe FROM campers ORDER BY date_of_birth')
+        campers = c.fetchall()
+
+        male_count = 0
+        female_count = 0
+        for camper in campers:
+            if camper[2] == 'Male':
+                if male_count < 12:
+                    c.execute('UPDATE campers SET bunkhouse = ? WHERE first_name = ? AND last_name = ?',
+                              (1, camper[0], camper[1]))
+                elif male_count < 24:
+                    c.execute('UPDATE campers SET bunkhouse = ? WHERE first_name = ? AND last_name = ?',
+                              (2, camper[0], camper[1]))
+                elif male_count < 36:
+                    c.execute('UPDATE campers SET bunkhouse = ? WHERE first_name = ? AND last_name = ?',
+                              (3, camper[0], camper[1]))
+                else:
+                    print("Error assigning male camper bunkhouse")
+                male_count += 1
+            elif camper[2] == 'Female':
+                if female_count < 12:
+                    c.execute('UPDATE campers SET bunkhouse = ? WHERE first_name = ? AND last_name = ?',
+                              (4, camper[0], camper[1]))
+                elif female_count < 24:
+                    c.execute('UPDATE campers SET bunkhouse = ? WHERE first_name = ? AND last_name = ?',
+                              (5, camper[0], camper[1]))
+                elif female_count < 36:
+                    c.execute('UPDATE campers SET bunkhouse = ? WHERE first_name = ? AND last_name = ?',
+                              (6, camper[0], camper[1]))
+                else:
+                    print("Error assigning female camper bunkhouse")
+                female_count += 1
+
+        conn.commit()
+        conn.close()
+
+    def assign_tribes(self):
+        conn = self.create_connection()
+        c = conn.cursor()
+
+        c.execute(
+            'SELECT first_name, last_name, gender, date_of_birth, mobile, address, city, state, zipcode, email, registration_date, bunkhouse, tribe FROM campers ORDER BY date_of_birth')
+        campers = c.fetchall()
+
+        male_count = 0
+        female_count = 0
+        for camper in campers:
+            if camper[2] == 'Male':
+                if male_count < 6:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (1, camper[0], camper[1]))
+                elif male_count < 12:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (2, camper[0], camper[1]))
+                elif male_count < 18:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (3, camper[0], camper[1]))
+                elif male_count < 24:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (4, camper[0], camper[1]))
+                elif male_count < 30:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (5, camper[0], camper[1]))
+                elif male_count < 36:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (6, camper[0], camper[1]))
+                else:
+                    print("Error assigning male camper tribe")
+                male_count += 1
+            elif camper[2] == 'Female':
+                if female_count < 6:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (1, camper[0], camper[1]))
+                elif female_count < 12:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (2, camper[0], camper[1]))
+                elif female_count < 18:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (3, camper[0], camper[1]))
+                elif female_count < 24:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (4, camper[0], camper[1]))
+                elif female_count < 30:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (5, camper[0], camper[1]))
+                elif female_count < 36:
+                    c.execute('UPDATE campers SET tribe = ? WHERE first_name = ? AND last_name = ?',
+                              (6, camper[0], camper[1]))
+                else:
+                    print("Error assigning female camper tribe")
+                female_count += 1
+
+        conn.commit()
+        conn.close()
 
 #db = Database()
 #db.insert_one_record("logins", ("admin", "1234"))
