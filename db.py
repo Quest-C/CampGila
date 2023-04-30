@@ -94,6 +94,14 @@ class Database:
         conn.close()
         return result
 
+    def verify_login_from_database(self, username, password):
+        conn = self.create_connection()
+        c = conn.cursor()
+        c.execute("SELECT * FROM logins WHERE username=? AND password=?", (username, password))
+        result = c.fetchone()
+        conn.close()
+        return result is not None
+
     def update_camper_data(self, f_name, l_name, gender, dob, mobile, address, city, state, zipcode, email, bunkhouse, tribe):
         conn = self.create_connection()
         c = conn.cursor()
