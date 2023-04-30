@@ -258,6 +258,3 @@ class Database:
 
         conn.commit()
         conn.close()
-
-#db = Database()
-#db.insert_one_record("logins", ("admin", "1234"))
