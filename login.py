@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from mainpage import MainPage
+from db import Database
 
 class LoginPage:
     def __init__(self, master):
@@ -31,14 +32,13 @@ class LoginPage:
         ttk.Button(self.page, text = "Exit", command = self.master.destroy).grid(row = 4, column = 2, pady = 20)
 
     def verify_login(self):
-        if self.username.get() == "clerk" and self.password.get() == "password":
-            tk.messagebox.showinfo(title = "Successful",
-                                   message = "Login Successful")
+        db = Database()
+        if db.verify_login_from_database(self.username.get(), self.password.get()):
+            tk.messagebox.showinfo(title="Successful", message="Login Successful")
             self.page.destroy()
             MainPage(root)
         else:
-            tk.messagebox.showwarning(title = "Alert",
-                                      message = "Login Failure. \nPlease try again")
+            tk.messagebox.showwarning(title="Alert", message="Login Failure. \nPlease try again")
 
 
 if __name__ == "__main__":
