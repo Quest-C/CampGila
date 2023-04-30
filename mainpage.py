@@ -60,12 +60,17 @@ class MainPage:
                   command=self.show_update,
                   bd=0, padx=20).pack(side="left")
 
+        tk.Button(self.topFrame, text='Remove', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+                  bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
+                  command=self.show_delete,
+                  bd=0, padx=20).pack(side="left")
+
         tk.Button(self.topFrame, text='Payment', font="Bahnschrift 10", fg=COLOR_THEME['text'],
                   bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
                   command=self.show_payment,
                   bd=0, padx=20).pack(side="left")
 
-        tk.Button(self.topFrame, text='Campers', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+        tk.Button(self.topFrame, text='Camper Lookup', font="Bahnschrift 10", fg=COLOR_THEME['text'],
                   bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
                   command=self.show_campers,
                   bd=0, padx=20).pack(side="left")
@@ -75,14 +80,9 @@ class MainPage:
                   command=self.show_assignment,
                   bd=0, padx=20).pack(side="left")
 
-        tk.Button(self.topFrame, text='Search', font="Bahnschrift 10", fg=COLOR_THEME['text'],
+        tk.Button(self.topFrame, text='Payment Records', font="Bahnschrift 10", fg=COLOR_THEME['text'],
                   bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
                   command=self.show_search,
-                  bd=0, padx=20).pack(side="left")
-
-        tk.Button(self.topFrame, text='Remove', font="Bahnschrift 10", fg=COLOR_THEME['text'],
-                  bg=COLOR_THEME['main'], activebackground=COLOR_THEME['light'],
-                  command=self.show_delete,
                   bd=0, padx=20).pack(side="left")
 
         tk.Button(self.topFrame, text='Sign out', font="Bahnschrift 10", fg=COLOR_THEME['text'],
