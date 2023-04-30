@@ -15,7 +15,9 @@ CREATE_CAMPERS_TABLE_SQL = """CREATE TABLE IF NOT EXISTS campers(
                                 state text, 
                                 zipcode text, 
                                 email text PRIMARY KEY, 
-                                registration_date text)
+                                registration_date text,
+                                bunkhouse text,
+                                tribe text)
                             """
 
 CREATE_PAYMENTS_TABLE_SQL = """
@@ -24,5 +26,7 @@ CREATE_PAYMENTS_TABLE_SQL = """
                             email text, 
                             payment_date text NOT NULL, 
                             payment_amount text NOT NULL, 
-                            FOREIGN KEY(email) REFERENCES campers(email))
+                            FOREIGN KEY(email) REFERENCES campers(email)
+                                ON DELETE NO ACTION
+                            )
                             """
