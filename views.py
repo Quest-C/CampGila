@@ -22,12 +22,17 @@ class AboutFrame(ttk.Frame):
                              "and press 'Search'. After you finish editing their information, select 'Submit'.",
                   font=('Bahnschrift',fontsize2)).pack()
         ttk.Label(self).pack()
+        ttk.Label(self, text="Remove", font=('Bahnschrift', fontsize1)).pack()
+        ttk.Label(self,
+                  text="To remove a camper, enter the email of the camper you want to remove, then press 'Submit'.",
+                  font=('Bahnschrift', fontsize2)).pack()
+        ttk.Label(self).pack()
         ttk.Label(self, text="Payment", font=('Bahnschrift',fontsize1)).pack()
         ttk.Label(self, text="After selecting a payment type, enter the prompted payment information, "
                              "then select 'Submit' when finished.",
                   font=('Bahnschrift',fontsize2)).pack()
         ttk.Label(self).pack()
-        ttk.Label(self, text="Campers", font=('Bahnschrift',fontsize1)).pack()
+        ttk.Label(self, text="Camper Lookup", font=('Bahnschrift',fontsize1)).pack()
         ttk.Label(self, text="To view the most updated list of campers, select the 'Refresh' button.",
                   font=('Bahnschrift',fontsize2)).pack()
         ttk.Label(self).pack()
@@ -35,19 +40,15 @@ class AboutFrame(ttk.Frame):
         ttk.Label(self, text="This tab is to view bunk and tribe assignments.",
                   font=('Bahnschrift',fontsize2)).pack()
         ttk.Label(self).pack()
-        ttk.Label(self, text="Search", font=('Bahnschrift',fontsize1)).pack()
+        ttk.Label(self, text="Payment Records", font=('Bahnschrift',fontsize1)).pack()
         ttk.Label(self, text="To search for a camper, select a category from the dropdown menu, "
                              "then enter the required information",
-                  font=('Bahnschrift',fontsize2)).pack()
-        ttk.Label(self).pack()
-        ttk.Label(self, text="Remove", font=('Bahnschrift',fontsize1)).pack()
-        ttk.Label(self, text="To remove a camper, enter the email of the camper you want to remove, then press 'Submit'.",
                   font=('Bahnschrift',fontsize2)).pack()
         ttk.Label(self).pack()
         ttk.Label(self, text='About Product: Created by Tkinter').pack()
         ttk.Label(self, text='Authors: Quest Crotty, Tess Studdiford, Anders Ortlieb').pack()
         ttk.Label(self, text='Project: ITM 360 Midterm').pack()
-        ttk.Label(self, text='Version: v1.0.0').pack()
+        ttk.Label(self, text='Version: v1.3.0').pack()
 
 class DeleteFrame(ttk.Frame):
     def __init__(self, master):
@@ -172,12 +173,12 @@ class CreateFrame(ttk.Frame):
         # Sixth Row
 
         ttk.Label(self.info, text='Bunkhouse', font=("Calibri 12")).grid(row=5, column=0, pady=5, sticky=tk.W)
-        ttk.Entry(self.info, textvariable=self.bunkhouse, width=20, state='disabled').grid(row=5, column=1, pady=5, sticky=tk.W)
+        ttk.Entry(self.info, textvariable=self.bunkhouse, width=20).grid(row=5, column=1, pady=5, sticky=tk.W)
 
         ttk.Label(self.info, width=5).grid(row=5, column=2)
 
         ttk.Label(self.info, text='Tribe', font=("Calibri 12")).grid(row=5, column=3, pady=5, sticky=tk.W)
-        ttk.Entry(self.info, textvariable=self.tribe, width=20, state='disabled').grid(row=5, column=4, pady=5, sticky=tk.W)
+        ttk.Entry(self.info, textvariable=self.tribe, width=20).grid(row=5, column=4, pady=5, sticky=tk.W)
 
     def create_camper(self):
         db = Database()
@@ -601,7 +602,7 @@ class CampersFrame(ttk.Frame):
         self.table_by_frame = ttk.Frame(self)
         self.table_by_frame.pack()
 
-        menu_list = ['', 'email', 'first_name', 'last_name', 'bunkhouse', 'tribe']
+        menu_list = ['', 'email', 'first_name', 'last_name', 'bunkhouse', 'tribe', 'gender']
 
         oMenuWidth = len(max(menu_list, key=len))
 
